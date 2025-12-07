@@ -13,7 +13,8 @@ function buildDatabaseUrl(): string | undefined {
   // Build from Neon individual variables (Vercel deployment)
   const user = process.env.PGUSER;
   const password = process.env.PGPASSWORD;
-  const host = process.env.POSTGRES_HOST;
+  // Neon uses different variable names - check both
+  const host = process.env.POSTGRES_HOST || process.env.PGHOST;
   const database = process.env.PGDATABASE;
 
   if (user && password && host && database) {
