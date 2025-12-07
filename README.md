@@ -57,12 +57,20 @@ npm run db:push   # Apply schema
 npm run db:studio # View data in browser
 ```
 
-### Production (Neon)
+### Production (Neon + Vercel)
 
-1. Create account at [neon.tech](https://neon.tech)
-2. Create new project
-3. Copy connection string
-4. Add `DATABASE_URL` to Vercel environment variables
+The project automatically builds the database connection from individual Neon environment variables:
+
+| Variable        | Description       |
+| --------------- | ----------------- |
+| `PGUSER`        | Database username |
+| `PGPASSWORD`    | Database password |
+| `POSTGRES_HOST` | Database host     |
+| `PGDATABASE`    | Database name     |
+
+These are automatically set when you connect Neon to Vercel via integration.
+
+**Note:** For local development, you can still use `DATABASE_URL` directly or run Docker.
 
 ## 🔌 REST API
 
@@ -116,14 +124,10 @@ git push origin main
 ### 2. Deploy to Vercel
 
 1. Connect repository at [vercel.com](https://vercel.com)
-2. Add environment variable:
-   - `DATABASE_URL` = Your Neon connection string (with `?sslmode=require`)
+2. Connect Neon integration (automatically sets environment variables)
+3. Deploy!
 
-### 3. Run migrations
-
-```bash
-npx prisma db push
-```
+The `vercel-build` script automatically runs `prisma db push` during deployment.
 
 ## 📁 Project Structure
 
